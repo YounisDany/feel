@@ -153,14 +153,24 @@
         function draw(e) {
             if (!painting) return;
 
+            // الحصول على إحداثيات الماوس بشكل صحيح
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
             ctx.lineWidth = penSize;
             ctx.lineCap = "round";
             ctx.strokeStyle = penColor;
 
-            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
-            ctx.stroke();
+            if (currentTool === "pen") {
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            } else if (currentTool === "eraser") {
+                ctx.clearRect(x - penSize / 2, y - penSize / 2, penSize, penSize); // ممحاة
+            }
+
             ctx.beginPath();
-            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.moveTo(x, y);
         }
 
         // مسح اللوحة
