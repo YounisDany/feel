@@ -153,6 +153,46 @@
             }
         `;
         document.head.appendChild(style);
+
+function speakText(text) {
+    responsiveVoice.speak(text, "Arabic Male");
+}
+
+function showEmoji(emoji, text) {
+    let emojiPopup = document.getElementById('emojiPopup');
+    emojiPopup.innerHTML = emoji;
+    emojiPopup.style.display = 'block';
+    setTimeout(() => { emojiPopup.style.display = 'none'; }, 1500);
+    
+    // تشغيل الصوت عند الضغط
+    speakText(text);
+
+    // تأثير سقوط الإيموجيات
+    for (let i = 0; i < 15; i++) {  // زدت العدد لجعل التأثير أكثر
+        let fallingEmoji = document.createElement('div');
+        fallingEmoji.innerHTML = emoji;
+        fallingEmoji.style.position = 'fixed';
+        fallingEmoji.style.left = Math.random() * window.innerWidth + 'px';
+        fallingEmoji.style.top = '-50px';
+        fallingEmoji.style.fontSize = '50px';
+        fallingEmoji.style.animation = 'fall 2s linear';
+        document.body.appendChild(fallingEmoji);
+        setTimeout(() => fallingEmoji.remove(), 2000);
+    }
+}
+
+// أنماط سقوط الإيموجيات
+const style = document.createElement('style');
+style.innerHTML = `
+    @keyframes fall {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
     </script>
+
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=iQqyDrUh"></script>
 </body>
 </html>
