@@ -137,7 +137,7 @@
         let penSize = 5;
         let penColor = "#ff6f61";
 
-        // بدأ الرسم
+        // بدء الرسم
         function startPosition(e) {
             painting = true;
             draw(e);
@@ -149,7 +149,7 @@
             ctx.beginPath();
         }
 
-        // الرسم
+        // الرسم الفعلي
         function draw(e) {
             if (!painting) return;
 
@@ -180,6 +180,7 @@
         // تغيير القلم
         document.getElementById("penButton").addEventListener("click", () => {
             currentTool = "pen";
+            penColor = document.getElementById("penColor").value; // استرجاع اللون المحدد
         });
 
         // تغيير الممحاة
